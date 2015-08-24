@@ -1,41 +1,48 @@
 // OOP Racing Game example boilerplate code
 
-function Game() {
-  //Create a new instance of player 1
-  //this.player1 = ...
 
-  //Do the same for a player 2
-  //this.player2 = ...
+$(document).ready(function() {
+  $(document).on('keydown', function(e) {
+  
+    var endText = $('.endText').position();
+ //Assign A and B keycodes   
+   var carArray = [65, 66];
+    
+    $.each(carArray, function( index, value ) {
+    
+      if (e.keyCode === value && endText.left > $('.player'+ index).position().left){ 
+          $('.player'+ index).css('left', '+=50px');
+      }
+      
+    });
+  
+  });
+  
+  $(document).on('keyup', function(e) {
+    //console.log(e);
+    
+    var endText = $('.endText').position();
+    
+   var carArray = [65, 66];
+    
+    $.each(carArray, function( index, value ) {
 
-  //Create the track
-  //this.track = ...
-}
-
-// `Game.prototype.init` kicks off a new game with a board and two players
-Game.prototype.init = function() {
-  //
-};
-
-// A starter Player constructor.
-function Player(team) {
-  //this.name = ...
-  //this.position = ...
-};
-
-// Remember: prototypes are shared functions between all game instances
-Player.prototype.move = function() {
-  //update player's position
-};
-
-
-// A starter Track constructor.
-function Track() {
-  //Tracks the cells of the board instance
-  //this.$cells = ...
-
-  //Store any other properties that board may have below, such as a reset option
-};
-
-// Start the game!
-var game = new Game();
-game.init();
+      if (endText.left <= $('.player'+ index).position().left){
+        alert('Car '+ (index + 1) +' wins!');
+      }
+    });
+  });
+  
+ //Reset players 
+  $('.reset').on('click', function(e){
+    var carArray = [65, 66];
+    
+    
+    $.each(carArray, function( index, value ) {
+      $('.player'+ index).css('left', '50px');
+    });
+   });
+  
+  
+  
+});
